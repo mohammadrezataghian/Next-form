@@ -5,22 +5,22 @@ import "animate.css";
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
+import ErrorSvg from "./errorSvg";
+import InputFileSvg from "./inputFileSvg";
+import {FormValues,FormData,FileInfo} from "../types"
 
 const FormInputs = () => {
+    
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const onSubmit = (data) => console.log(data);
+  } = useForm<FormValues>();
+  const onSubmit = (data:FormData) => console.log(data);
   console.log(errors);
 
   const [value, setValue] = useState(new Date());
-  const [fileInfo, setFileInfo] = useState<{
-    name: string;
-    size: number;
-    preview: string | null;
-  } | null>(null);
+  const [fileInfo, setFileInfo] = useState<FileInfo | null>(null)
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
@@ -28,7 +28,7 @@ const FormInputs = () => {
       const preview = URL.createObjectURL(file);
       setFileInfo({
         name: file.name,
-        size: (file.size / 1024).toFixed(2), // Size in KB
+        size: (file.size / 1024).toFixed(2), 
         preview,
       });
     }
@@ -56,6 +56,7 @@ const FormInputs = () => {
             {errors.fullName && (
               <p className="text-red-500 text-xs mt-1">
                 {errors.fullName.message}
+                <ErrorSvg/>
               </p>
             )}
             <label
@@ -82,6 +83,7 @@ const FormInputs = () => {
             {errors.phoneNumber && (
               <p className="text-red-500 text-xs mt-1">
                 {errors.phoneNumber.message}
+                <ErrorSvg/>
               </p>
             )}
             <label
@@ -120,7 +122,7 @@ const FormInputs = () => {
     htmlFor="datepicker"
     className="absolute right-8 top-4 transform -translate-y-1/2 text-gray-400 pointer-events-none transition-all duration-300 z-50"
   >
-    {value ? "تاریخ تولد" : "تاریخ انتخابی"} {/* Placeholder text */}
+    {value ? "تاریخ تولد" : "تاریخ انتخابی"} 
   </label>
            
           </div>
@@ -139,6 +141,7 @@ const FormInputs = () => {
             {errors.email && (
               <p className="text-red-500 text-xs mt-1">
                 {errors.email.message}
+                <ErrorSvg/>
               </p>
             )}
             <label
@@ -150,10 +153,7 @@ const FormInputs = () => {
           </div>
         </div>
         <div className="w-full flex gap-5 mb-3">
-          {/* <select
-            className="w-1/2 animate__animated animate__fadeInUp animate__delay-4s"
-            {...register("military service", { required: true })}
-           */}
+          {/* {...register("military service", { required: true })}*/}
           <div className="relative w-1/2 rtl animate__animated animate__fadeInUp animate__delay-4s">
             <select
               id="military"
@@ -180,10 +180,7 @@ const FormInputs = () => {
               وضعیت نظام وظیفه
             </label>
           </div>
-          {/* <select className="w-1/2 animate__animated animate__fadeInUp animate__delay-5s" {...register("gender", { required: true })}>
-            <option value="Mr">آقا</option>
-            <option value="Mrs">خانم</option>
-          </select> */}
+          {/*  {...register("gender", { required: true })}>*/}
           <div className="relative w-1/2 rtl animate__animated animate__fadeInUp animate__delay-5s">
             <select
               id="gender"
@@ -216,15 +213,7 @@ const FormInputs = () => {
               className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-400 border-dashed rounded-lg cursor-pointer bg-white dark:bg-white dark:border-gray-400 animate__animated animate__fadeInUp animate__delay-5s"
             >
               <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                <svg
-                  fill="grey"
-                  width="80px"
-                  height="80px"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M17.5531248,16.4450044 C17.6286997,16.179405 17.9052761,16.0253597 18.1708755,16.1009346 C18.4364749,16.1765095 18.5905202,16.4530859 18.5149453,16.7186853 C18.2719275,17.5727439 17.5931039,18.2421122 16.71594,18.4614032 L8.58845447,20.4931921 C7.21457067,20.8106614 5.86688485,19.9801117 5.55483435,18.6278929 L3.45442103,9.52610182 C3.14793844,8.19801056 3.96175966,6.86917188 5.28405996,6.53859681 L7.17308561,6.06634039 C7.44098306,5.99936603 7.71245031,6.16224638 7.77942467,6.43014383 C7.84639904,6.69804129 7.68351869,6.96950853 7.41562123,7.03648289 L5.52659559,7.50873931 C4.7332154,7.70708435 4.24492267,8.50438756 4.42881223,9.30124232 L6.52922555,18.4030334 C6.71644059,19.2142985 7.52497921,19.7125835 8.35461578,19.5209579 L16.4734044,17.4912607 C17.0000615,17.3595964 17.407086,16.9582414 17.5531248,16.4450044 Z M20,13.2928932 L20,5.5 C20,4.67157288 19.3284271,4 18.5,4 L9.5,4 C8.67157288,4 8,4.67157288 8,5.5 L8,11.2928932 L10.1464466,9.14644661 C10.3417088,8.95118446 10.6582912,8.95118446 10.8535534,9.14644661 L14.5637089,12.8566022 L17.2226499,11.0839749 C17.4209612,10.9517673 17.6850212,10.9779144 17.8535534,11.1464466 L20,13.2928932 L20,13.2928932 Z M19.9874925,14.6945992 L17.4362911,12.1433978 L14.7773501,13.9160251 C14.5790388,14.0482327 14.3149788,14.0220856 14.1464466,13.8535534 L10.5,10.2071068 L8,12.7071068 L8,14.5 C8,15.3284271 8.67157288,16 9.5,16 L18.5,16 C19.2624802,16 19.8920849,15.4310925 19.9874925,14.6945992 L19.9874925,14.6945992 Z M9.5,3 L18.5,3 C19.8807119,3 21,4.11928813 21,5.5 L21,14.5 C21,15.8807119 19.8807119,17 18.5,17 L9.5,17 C8.11928813,17 7,15.8807119 7,14.5 L7,5.5 C7,4.11928813 8.11928813,3 9.5,3 Z M16,5 L18,5 C18.5522847,5 19,5.44771525 19,6 L19,8 C19,8.55228475 18.5522847,9 18,9 L16,9 C15.4477153,9 15,8.55228475 15,8 L15,6 C15,5.44771525 15.4477153,5 16,5 Z M16,6 L16,8 L18,8 L18,6 L16,6 Z" />
-                </svg>
+                <InputFileSvg/>
                 <p className="mb-2 text-sm text-black dark:text-black">
                   <span className="font-semibold text-blue-700">
                     انتخاب فایل
