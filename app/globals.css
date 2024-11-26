@@ -68,8 +68,9 @@ div#myForm{
 }
 .custom-input::before{
   content: "تاریخ تولد";
-  
-  
   color: black;
   
+}
+.ah{
+  justify-self: flex-end;
 }
