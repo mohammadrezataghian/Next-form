@@ -9,13 +9,67 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background:white;
     --foreground: #ededed;
   }
+}
+
+@font-face {
+  font-family: iranyekan;
+  src: url('./fonts/persian font/IRANYekanWeb.eot');
+  src: url('./fonts/persian font/IRANYekanWeb.ttf');
+  src: url('./fonts/persian font/IRANYekanWeb.woff');
+  src: url('./fonts/persian font/IRANYekanWeb.woff2');
+  
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.show{
+  display: block !important; 
+}
+.hide{
+  display: none !important;
+}
+div#myForm{
+  background-image: url("/200w.gif");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 5;
+}
+#filled-basic::placeholder{
+  color: #171717 !important;
+  text-align: right !important;
+}
+#filled-basic:focus{
+  /* border: none !important;
+  inset: unset;
+  outline: black; */
+  offset: unset;
+}
+
+.custom-input {
+  padding: 4px 12px;
+  background-color: white;
+  z-index: 30 !important;
+  position: relative !important;
+  color: #171717;
+  vertical-align: bottom;
+}
+
+.custom-input:focus {
+  outline: none;
+  border: 2px solid #581C87 !important;
+}
+.custom-input::before{
+  content: "تاریخ تولد";
+  
+  
+  color: black;
+  
 }
