@@ -8,6 +8,7 @@ import persian_fa from "react-date-object/locales/persian_fa";
 import ErrorSvg from "./errorSvg";
 import InputFileSvg from "./inputFileSvg";
 import {FormValues,FormData,FileInfo} from "../types"
+import DateObject  from "react-date-object";
 
 const FormInputs = () => {
     
@@ -19,7 +20,8 @@ const FormInputs = () => {
   const onSubmit = (data:FormData) => console.log(data);
   console.log(errors);
 
-  const [value, setValue] = useState(new Date());
+  const defaultDate = new DateObject();
+  const [value, setValue] = useState<DateObject | null>(defaultDate);
   const [fileInfo, setFileInfo] = useState<FileInfo | null>(null)
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -122,7 +124,7 @@ const FormInputs = () => {
     htmlFor="datepicker"
     className="absolute right-8 top-4 transform -translate-y-1/2 text-gray-400 pointer-events-none transition-all duration-300 z-50"
   >
-    {value ? "تاریخ تولد" : "تاریخ انتخابی"} 
+    {value ? "تاریخ تولد" : "تاریخ تولد"} 
   </label>
            
           </div>
